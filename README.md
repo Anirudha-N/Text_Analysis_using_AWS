@@ -24,7 +24,7 @@ Tweets Sentiments'
     
     1.ExtractTweets:Trigger S3 bucket to this Lambda function.This function will conevert twitter raw files from S3 into DynamoDB table RawTweets.The function is written in S3_Dynamo.js file.Environment Variables are - DYNAMODB_TABLE = RawTweets
     
-    2.ExtractSentiments:Trigger DynamoDB table RawTweets to this Lambda function.This function will analyze sentiments for each record in RawTweets table .The function is written in index.js file.Environment Variables are - DYNAMODB_TABLE = twitterSentiment.
+    2.ExtractSentiments:Trigger DynamoDB table RawTweets to this Lambda function.This function will analyze sentiments by using AWS Comprehend for each record in RawTweets table .The function is written in index.js file.Environment Variables are - DYNAMODB_TABLE = twitterSentiment.
 
 10.Run Kinesis.js.After some time you will see data in S3 bucket.First lambda function will get executed after it finds data in S3 bucket.Second Lambda function will get executed when we will get records in DynamoDB RawTweets table. 
 
