@@ -18,7 +18,7 @@ var client = new Twitter({
   access_token_secret: 'Put your access token secret key'
 });
 
-//Reading tweets by filter operation tracking only tweets containing 'cat'
+//Reading tweets by filter operation tracking only tweets containing word 'avenger'.Put words in track for which you want to analyze twitter sentiments
 var stream = client.stream('statuses/filter',{
   track: 'avengers',
   language :'en'
@@ -27,13 +27,14 @@ var stream = client.stream('statuses/filter',{
 stream.on('data',function (event){
 	if (event.text){
 		
-		//convert tweets in json string
+		//convert tweets in json string.It will create file with id,timestamp and tweet and records will ne delimited by '|'
 		var record =JSON.stringify({
 			id:event.id,
 			timestamp:event['created_at'],
 			tweet: event.text.replace(/["'}{|]/g,'')
 		}) + '|' //record delimiter
 
+		//Puts Twitter data in Kinesis streams.
 		kinesis.putRecord({
 			Data: record,
 			StreamName:'twitterStream',
